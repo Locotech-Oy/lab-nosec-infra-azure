@@ -15,7 +15,7 @@ variables:
  - name: TerraformBackend.ResourceGroup
    value: labNoSecInfra
  - name: TerraformBackend.StorageAccount
-   value: strlabnosecinfraterraform
+   value: labnosecinfratf
  - name: TerraformBackend.ContainerName
    value: nosecinfra
 
