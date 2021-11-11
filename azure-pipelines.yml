@@ -49,7 +49,7 @@ steps:
     command: plan
     environmentServiceName: $(TerraformBackend.ServiceConnection)
 
-- task: TerraformCLI
+- task: TerraformCLI@0
   displayName: 'terraform apply'
   inputs:
     command: apply
