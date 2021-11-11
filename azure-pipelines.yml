@@ -1,0 +1,38 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+ - name: TerraformBackend.Location
+   value: westeurope
+ - name: TerraformBackend.ResourceGroup
+   value: rg-labNoSecInfra
+ - name: TerraformBackend.StorageAccount
+   value: strlabnosecinfraterraform
+ - name: TerraformBackend.ContainerName
+   value: nosecinfra
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'LabNoSec'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az group create --location $(TerraformBackend.Location) --name $(TerraformBackend.ResourceGroup)
+      
+      #az storage account create --name $(TerraformBackend.StorageAccount) --resource-group $(TerraformBackend.ResourceGroup) --location westeurope --sku Standard_LRS
+      
+      #az storage container create --name $(TerraformBackend.ContainerName) --account-name $(TerraformBackend.StorageAccount)
+
+      #STORAGE_ACCOUNT_KEY=$(az storage account keys list -g $(TerraformBackend.ResourceGroup) -n $(TerraformBackend.StorageAccount) | jq ".[0].value" -r)
+
+      echo "setting storage account key variable"
+      #echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$STORAGE_ACCOUNT_KEY"
