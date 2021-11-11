@@ -56,4 +56,4 @@ steps:
     # azure blob container to store the state file
     backendAzureRmContainerName: $(TerraformBackend.ContainerName)
     # azure blob file name
-    #backendAzureRmKey: infrax.tfstate      
+    backendAzureRmKey: infrax.tfstate      
