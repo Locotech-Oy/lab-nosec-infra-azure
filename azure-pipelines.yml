@@ -14,6 +14,9 @@ variables:
    value: labnosecinfratf
  - name: TerraformBackend.ContainerName
    value: nosecinfra
+ - name: TerraformBackend.ServiceConnection
+   value: LabNoSec
+
 
 steps:
 - task: TerraformInstaller@0
@@ -26,7 +29,7 @@ steps:
   inputs:
     command: init
     backendType: azurerm
-    backendServiceArm: 'LabNoSec'
+    backendServiceArm: $(TerraformBackend.ServiceConnection)
     # create backend storage account if doesn't exist
     ensureBackend: true
     backendAzureRmResourceGroupName: $(TerraformBackend.ResourceGroup)
@@ -44,4 +47,10 @@ steps:
   displayName: 'terraform plan'
   inputs:
     command: plan
-    environmentServiceName: 'LabNoSec'
+    environmentServiceName: $(TerraformBackend.ServiceConnection)
+
+- task: TerraformCLI
+  displayName: 'terraform apply'
+  inputs:
+    command: apply
+    environmentServiceName: $(TerraformBackend.ServiceConnection)
