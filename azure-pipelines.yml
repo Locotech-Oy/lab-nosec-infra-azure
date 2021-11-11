@@ -1,8 +1,4 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
+# Applies the terraform plan in this repository
 trigger:
 - main
 
@@ -20,20 +16,44 @@ variables:
    value: nosecinfra
 
 steps:
-- task: AzureCLI@2
-  displayName: Setup storage for terraform state
+# - task: AzureCLI@2
+#   displayName: Setup storage for terraform state
+#   inputs:
+#     azureSubscription: 'LabNoSec'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: |
+#       az group create --location $(TerraformBackend.Location) --name $(TerraformBackend.ResourceGroup)
+      
+#       az storage account create --name $(TerraformBackend.StorageAccount) --resource-group $(TerraformBackend.ResourceGroup) --location $(TerraformBackend.Location) --sku Standard_LRS
+      
+#       az storage container create --name $(TerraformBackend.ContainerName) --account-name $(TerraformBackend.StorageAccount)
+
+#       STORAGE_ACCOUNT_KEY=$(az storage account keys list -g $(TerraformBackend.ResourceGroup) -n $(TerraformBackend.StorageAccount) | jq ".[0].value" -r)
+
+#       echo "setting storage account key variable"
+#       echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$STORAGE_ACCOUNT_KEY"
+
+- task: TerraformInstaller@0
+  displayName: Install terraform
   inputs:
-    azureSubscription: 'LabNoSec'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      az group create --location $(TerraformBackend.Location) --name $(TerraformBackend.ResourceGroup)
-      
-      az storage account create --name $(TerraformBackend.StorageAccount) --resource-group $(TerraformBackend.ResourceGroup) --location $(TerraformBackend.Location) --sku Standard_LRS
-      
-      az storage container create --name $(TerraformBackend.ContainerName) --account-name $(TerraformBackend.StorageAccount)
+      terraformVersion: latest
 
-      STORAGE_ACCOUNT_KEY=$(az storage account keys list -g $(TerraformBackend.ResourceGroup) -n $(TerraformBackend.StorageAccount) | jq ".[0].value" -r)
-
-      echo "setting storage account key variable"
-      echo "##vso[task.setvariable variable=ARM_ACCESS_KEY;issecret=true]$STORAGE_ACCOUNT_KEY"
+- task: TerraformCLI@0
+  displayName: 'terraform init'
+  inputs:
+    command: init
+    backendType: azurerm
+    backendServiceArm: 'LabNoSec'
+    # create backend storage account if doesn't exist
+    ensureBackend: true
+    backendAzureRmResourceGroupName: $(TerraformBackend.ResourceGroup)
+    # azure location shortname of the backend resource group and storage account
+    backendAzureRmResourceGroupLocation: $(TerraformBackend.Location)
+    backendAzureRmStorageAccountName: $(TerraformBackend.StorageAccount)
+    # azure storage account sku, used when creating the storage account
+    backendAzureRmStorageAccountSku: 'Standard_LRS'
+    # azure blob container to store the state file
+    backendAzureRmContainerName: $(TerraformBackend.ContainerName)
+    # azure blob file name
+    #backendAzureRmKey: infrax.tfstate      
