@@ -9,7 +9,7 @@ variables:
  - name: TerraformBackend.Location
    value: westeurope
  - name: TerraformBackend.ResourceGroup
-   value: labNoSecInfra
+   value: labNoSecInfraTF
  - name: TerraformBackend.StorageAccount
    value: labnosecinfratf
  - name: TerraformBackend.ContainerName
