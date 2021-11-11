@@ -41,7 +41,7 @@ steps:
     backendAzureRmKey: infrax.tfstate
 
 - task: TerraformCLI@0
-    displayName: 'terraform plan'
-    inputs:
-        command: plan
-        environmentServiceName: 'LabNoSec'
+  displayName: 'terraform plan'
+  inputs:
+    command: plan
+    environmentServiceName: 'LabNoSec'
