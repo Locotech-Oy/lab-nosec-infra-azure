@@ -24,9 +24,10 @@ steps:
   inputs:
     Path: '$(System.DefaultWorkingDirectory)'
     prismaCloudService: 'Prisma Cloud'
-    High: '1'
-    Medium: '1'
-    Low: '1'
+    # Report only, in this version we do not actually block any complicance failures
+    High: '0'
+    Medium: '0'
+    Low: '0'
     Operator: 'or'
     Tags: 'env:prod'
 - task: TerraformInstaller@0
