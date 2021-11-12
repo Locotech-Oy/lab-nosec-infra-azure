@@ -22,5 +22,5 @@ variable "mysql_admin_user" {
 
 variable "mysql_admin_password" {
   description = "Password for admin with full access to database"
-  default = "!SecLabAdminSuperInsecure123!!"
+  default = "!SuperInsecure123#!!"
 }
