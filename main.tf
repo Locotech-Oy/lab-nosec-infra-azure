@@ -26,21 +26,21 @@ resource "azurerm_resource_group" "labnosec" {
 }
 
 # Create a virtual network
-# resource "azurerm_virtual_network" "vnet" {
-#   name                = "labNoSecVnet"
-#   address_space       = ["10.0.0.0/16"]
-#   location            = "westeurope"
-#   resource_group_name = azurerm_resource_group.labnosec.name
-# }
+resource "azurerm_virtual_network" "vnet" {
+  name                = "labNoSecVnet"
+  address_space       = ["10.10.0.0/24"]
+  location            = "westeurope"
+  resource_group_name = azurerm_resource_group.labnosec.name
+}
 
-# # Create a storage account
-# resource "azurerm_storage_account" "storage" {
-#   name                = "labnosecsa"
-#   location            = azurerm_resource_group.labnosec.location
-#   resource_group_name = azurerm_resource_group.labnosec.name
-#   account_tier        = "Standard"
-#   account_replication_type = "LRS"
-# }
+# Create a storage account
+resource "azurerm_storage_account" "storage" {
+  name                = "labnosecsa"
+  location            = azurerm_resource_group.labnosec.location
+  resource_group_name = azurerm_resource_group.labnosec.name
+  account_tier        = "Standard"
+  account_replication_type = "LRS"
+}
 
 # # Create an App service plan (free tier)
 # resource "azurerm_app_service_plan" "app_service_plan" {
