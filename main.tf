@@ -25,12 +25,12 @@ resource "azurerm_resource_group" "labnosec" {
 }
 
 # Create a virtual network
-resource "azurerm_virtual_network" "vnet" {
-  name                = "labNoSecVnet"
-  address_space       = ["10.0.0.0/16"]
-  location            = "westeurope"
-  resource_group_name = azurerm_resource_group.labnosec.name
-}
+# resource "azurerm_virtual_network" "vnet" {
+#   name                = "labNoSecVnet"
+#   address_space       = ["10.0.0.0/16"]
+#   location            = "westeurope"
+#   resource_group_name = azurerm_resource_group.labnosec.name
+# }
 
 # # Create a storage account
 # resource "azurerm_storage_account" "storage" {
