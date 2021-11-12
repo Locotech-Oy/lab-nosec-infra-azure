@@ -48,28 +48,32 @@ resource "azurerm_app_service_plan" "app_service_plan" {
   location            = azurerm_resource_group.labnosec.location
   resource_group_name = azurerm_resource_group.labnosec.name
   kind                = "App"
-  sku                 = "F1"
+  sku {
+    tier = "Free"
+    size = "F1"
+  }
 }
 
-# Create an App service
-resource "azurerm_app_service" "app_service" {
-  name                = "labNoSecAppService"
-  location            = azurerm_resource_group.labnosec.location
-  resource_group_name = azurerm_resource_group.labnosec.name
-  app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
-  https_only          = false
-}
+# # Create an App service
+# resource "azurerm_app_service" "app_service" {
+#   name                = "labNoSecAppService"
+#   location            = azurerm_resource_group.labnosec.location
+#   resource_group_name = azurerm_resource_group.labnosec.name
+#   app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
+#   https_only          = false
+# }
 
 # Create an Azure database for MySQL
 resource "azurerm_mysql_server" "mysql_server" {
-  name                = "labNoSecMysqlServer"
+  name                = "labnosec-mysqlserver"
   location            = azurerm_resource_group.labnosec.location
   resource_group_name = azurerm_resource_group.labnosec.name
-  administrator_login = var.mysql_admin_username
+  administrator_login = var.mysql_admin_user
   administrator_login_password = var.mysql_admin_password
-  sku                 = "B_Gen5_1"
+  sku_name                 = "B_Gen5_1"
   version             = "5.7"
   storage_mb          = 5120
-  geo_redundant_backup = false
-  infrastructure_encryption = false
+  geo_redundant_backup_enabled = false
+  public_network_access_enabled = true
+  ssl_enforcement_enabled = false
 }
