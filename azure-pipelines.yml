@@ -24,12 +24,12 @@ steps:
   inputs:
     Path: '$(System.DefaultWorkingDirectory)'
     prismaCloudService: 'Prisma Cloud'
-    # Report only, in this version we do not actually block any complicance failures
-    High: '1'
-    Medium: '2'
-    Low: '5'
+    # In this version we do not actually block any detected complicance errors.
+    # Do this by setting the failure treshold to an unreasonably high number
+    High: '999'
+    Medium: '999'
+    Low: '999'
     Operator: 'or'
-    IgnoreErrors: true
     Tags: 'env:prod'
 - task: TerraformInstaller@0
   displayName: Install terraform
