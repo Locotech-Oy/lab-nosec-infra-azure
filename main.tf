@@ -42,35 +42,34 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type = "LRS"
 }
 
-# # Create an App service plan (free tier)
-# resource "azurerm_app_service_plan" "app_service_plan" {
-#   name                = "labNoSecAppServicePlan"
-#   location            = azurerm_resource_group.labnosec.location
-#   resource_group_name = azurerm_resource_group.labnosec.name
-#   kind                = "App"
-#   sku                 = "F1"
-# }
+# Create an App service plan (free tier)
+resource "azurerm_app_service_plan" "app_service_plan" {
+  name                = "labNoSecAppServicePlan"
+  location            = azurerm_resource_group.labnosec.location
+  resource_group_name = azurerm_resource_group.labnosec.name
+  kind                = "App"
+  sku                 = "F1"
+}
 
-# # Create an App service
-# resource "azurerm_app_service" "app_service" {
-#   name                = "labNoSecAppService"
-#   location            = azurerm_resource_group.labnosec.location
-#   resource_group_name = azurerm_resource_group.labnosec.name
-#   app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
-#   https_only          = false
-# }
+# Create an App service
+resource "azurerm_app_service" "app_service" {
+  name                = "labNoSecAppService"
+  location            = azurerm_resource_group.labnosec.location
+  resource_group_name = azurerm_resource_group.labnosec.name
+  app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
+  https_only          = false
+}
 
-# # Create an Azure database for MySQL
-# resource "azurerm_mysql_server" "mysql_server" {
-#   name                = "labNoSecMysqlServer"
-#   location            = azurerm_resource_group.labnosec.location
-#   resource_group_name = azurerm_resource_group.labnosec.name
-#   administrator_login = var.mysql_admin_username
-#   administrator_login_password = var.mysql_admin_password
-#   sku                 = "B_Gen5_1"
-#   version             = "5.7"
-#   storage_mb          = 5120
-#   geo_redundant_backup = false
-#   infrastructure_encryption = false
-
-# }
+# Create an Azure database for MySQL
+resource "azurerm_mysql_server" "mysql_server" {
+  name                = "labNoSecMysqlServer"
+  location            = azurerm_resource_group.labnosec.location
+  resource_group_name = azurerm_resource_group.labnosec.name
+  administrator_login = var.mysql_admin_username
+  administrator_login_password = var.mysql_admin_password
+  sku                 = "B_Gen5_1"
+  version             = "5.7"
+  storage_mb          = 5120
+  geo_redundant_backup = false
+  infrastructure_encryption = false
+}
