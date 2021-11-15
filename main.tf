@@ -40,6 +40,12 @@ resource "azurerm_storage_account" "storage" {
   resource_group_name = azurerm_resource_group.labnosec.name
   account_tier        = "Standard"
   account_replication_type = "LRS"
+  enable_https_traffic_only: true
+  network_rules: [
+    {
+      "bypass": "AzureServices"
+    }
+  ]
 }
 
 # Create an App service plan (free tier)
@@ -75,6 +81,6 @@ resource "azurerm_mysql_server" "mysql_server" {
   storage_mb          = 5120
   geo_redundant_backup_enabled = false
   public_network_access_enabled = true
-  ssl_enforcement_enabled = false
-  ssl_minimal_tls_version_enforced = "TLSEnforcementDisabled"
+  ssl_enforcement_enabled = true
+  ssl_minimal_tls_version_enforced = "TLS1_2"
 }
