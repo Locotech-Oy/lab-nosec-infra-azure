@@ -1,7 +1,7 @@
 # lab-nosec-infra-azure
 A Terraform setup for testing various levels of insecure settings in Azure and how they are displayed in a security posture monitoring tool such as Prisma Cloud.
 
-> Note! This is a setup intentionally designed to not follow best practices. Do not use as template for a real life production. You should run this for as little time as needed to complete a test or demonstration.
+> Note! This is a setup intentionally designed to not follow best practices. It is also by no means designed to actually be a functional setup, only to demonstrate various insecure configs in various Azure services and how they could be fixed. Do not use this as a template for a real life production environment. You should run this for as little time as needed to complete a test or demonstration.
 
 Keep in mind, when applying the Terraform templates locally, the state will be stored in the local folder as well. Prefer to run the changes through our Azure pipeline.
 
