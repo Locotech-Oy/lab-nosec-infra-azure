@@ -41,11 +41,11 @@ resource "azurerm_storage_account" "storage" {
   account_tier        = "Standard"
   account_replication_type = "LRS"
   enable_https_traffic_only = true
-  network_rules = [
-    {
-      "bypass" = "AzureServices"
-    }
-  ]
+  network_rules {
+    default_action             = "Deny"
+    ip_rules                   = ["100.0.0.1"]
+    bypass  = ["AzureServices"]
+  }
 }
 
 # Create an App service plan (free tier)
