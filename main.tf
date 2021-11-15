@@ -1,6 +1,6 @@
 # Configure the Azure provider
 terraform {
-  backend "azurerm" {}
+  # backend "azurerm" {}
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -69,6 +69,18 @@ resource "azurerm_app_service" "app_service" {
   https_only          = true
   site_config {
     http2_enabled       = true
+    use_32_bit_worker_process = true
+    default_documents = [
+      "Default.htm",
+      "Default.html",
+      "Default.asp",
+      "index.htm",
+      "index.html",
+      "iisstart.htm",
+      "default.aspx",
+      "index.php",
+      "hostingstart.html",
+    ]
   }
   identity {
     type = "SystemAssigned"
