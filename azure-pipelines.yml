@@ -1,6 +1,7 @@
 # Applies the terraform plan in this repository
 trigger:
 - main
+- fixed
 
 pool:
   vmImage: ubuntu-latest
