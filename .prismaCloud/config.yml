@@ -14,9 +14,9 @@ template_version: 0.13
 # variable_files: Specify all the custom variable_files under here. It is an array of strings.
 # variable_files: If it is standard extension(.tfvars for terraform), then this can be omitted.
 # variable_files: For a custom extension, specify the variable file path from the root of the repo.
-# template_parameters:
-#   variable_files:
-#   - './TF/tf12_variable_files/smelks.tfvars'
+template_parameters:
+  variable_files:
+  - './variables.tf'
 #   - './TF/tf12_nested_variable_files/network/smelks.tfvars'
 #   variables:
 #     cidr: 0.0.0.0/0
