@@ -77,6 +77,7 @@ resource "azurerm_app_service" "app_service" {
   resource_group_name = azurerm_resource_group.labnosec.name
   app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
   https_only          = true
+  ftps_state          = "Disabled"
   site_config {
     http2_enabled       = true
     use_32_bit_worker_process = true
