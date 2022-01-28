@@ -71,6 +71,9 @@ resource "azurerm_app_service" "app_service" {
   resource_group_name = azurerm_resource_group.labnosec.name
   app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
   https_only          = false
+  site_config {
+    ftps_state = "Disabled"
+  }
 }
 
 # Create an Azure database for MySQL
