@@ -70,7 +70,13 @@ resource "azurerm_app_service" "app_service" {
   location            = azurerm_resource_group.labnosec.location
   resource_group_name = azurerm_resource_group.labnosec.name
   app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
-  https_only          = false
+  https_only          = true
+  logs {
+    detailed_error_messages_enabled = true
+  }
+  site_config {
+    http2_enabled = true
+  }
 }
 
 # Create an Azure database for MySQL
