@@ -40,30 +40,30 @@ steps:
   inputs:
       terraformVersion: latest
 
-- task: TerraformCLI@0
-  displayName: 'terraform init'
-  inputs:
-    command: init
-    backendType: azurerm
-    backendServiceArm: $(TerraformBackend.ServiceConnection)
-    # create backend storage account if doesn't exist
-    ensureBackend: true
-    backendAzureRmResourceGroupName: $(TerraformBackend.ResourceGroup)
-    # azure location shortname of the backend resource group and storage account
-    backendAzureRmResourceGroupLocation: $(TerraformBackend.Location)
-    backendAzureRmStorageAccountName: $(TerraformBackend.StorageAccount)
-    # azure storage account sku, used when creating the storage account
-    backendAzureRmStorageAccountSku: 'Standard_LRS'
-    # azure blob container to store the state file
-    backendAzureRmContainerName: $(TerraformBackend.ContainerName)
-    # azure blob file name
-    backendAzureRmKey: terraform.tfstate
+# - task: TerraformCLI@0
+#   displayName: 'terraform init'
+#   inputs:
+#     command: init
+#     backendType: azurerm
+#     backendServiceArm: $(TerraformBackend.ServiceConnection)
+#     # create backend storage account if doesn't exist
+#     ensureBackend: true
+#     backendAzureRmResourceGroupName: $(TerraformBackend.ResourceGroup)
+#     # azure location shortname of the backend resource group and storage account
+#     backendAzureRmResourceGroupLocation: $(TerraformBackend.Location)
+#     backendAzureRmStorageAccountName: $(TerraformBackend.StorageAccount)
+#     # azure storage account sku, used when creating the storage account
+#     backendAzureRmStorageAccountSku: 'Standard_LRS'
+#     # azure blob container to store the state file
+#     backendAzureRmContainerName: $(TerraformBackend.ContainerName)
+#     # azure blob file name
+#     backendAzureRmKey: terraform.tfstate
 
-- task: TerraformCLI@0
-  displayName: 'terraform plan'
-  inputs:
-    command: plan
-    environmentServiceName: $(TerraformBackend.ServiceConnection)
+# - task: TerraformCLI@0
+#   displayName: 'terraform plan'
+#   inputs:
+#     command: plan
+#     environmentServiceName: $(TerraformBackend.ServiceConnection)
 
 # 2022-02-28 JW: Disabled actual deployment while only testing the Cloud Code Security scan features
 # - task: TerraformCLI@0

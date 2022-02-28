@@ -66,6 +66,7 @@ resource "azurerm_app_service_plan" "app_service_plan" {
 
 # Create an App service
 resource "azurerm_app_service" "app_service" {
+  #checkov:skip=CKV_AZURE_80: The app does not use .NET framework
   name                = "labNoSecAppService"
   location            = azurerm_resource_group.labnosec.location
   resource_group_name = azurerm_resource_group.labnosec.name
