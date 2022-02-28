@@ -20,18 +20,18 @@ variables:
 
 
 steps:
-- task: Prisma Cloud IaC Scan@3
-  displayName: Scan IaC templates with Prisma Cloud
-  inputs:
-    Path: '$(System.DefaultWorkingDirectory)'
-    prismaCloudService: 'Prisma Cloud'
-    # In this version we do not actually block any detected complicance errors.
-    # Do this by setting the failure treshold to an unreasonably high number
-    High: '999'
-    Medium: '999'
-    Low: '999'
-    Operator: 'or'
-    Tags: 'env:prod'
+# - task: Prisma Cloud IaC Scan@3
+#   displayName: Scan IaC templates with Prisma Cloud
+#   inputs:
+#     Path: '$(System.DefaultWorkingDirectory)'
+#     prismaCloudService: 'Prisma Cloud'
+#     # In this version we do not actually block any detected complicance errors.
+#     # Do this by setting the failure treshold to an unreasonably high number
+#     High: '999'
+#     Medium: '999'
+#     Low: '999'
+#     Operator: 'or'
+#     Tags: 'env:prod'
 - task: TerraformInstaller@0
   displayName: Install terraform
   inputs:
@@ -62,8 +62,9 @@ steps:
     command: plan
     environmentServiceName: $(TerraformBackend.ServiceConnection)
 
-- task: TerraformCLI@0
-  displayName: 'terraform apply'
-  inputs:
-    command: apply
-    environmentServiceName: $(TerraformBackend.ServiceConnection)
+# 2022-02-28 JW: Disabled actual deployment while only testing the Cloud Code Security scan features
+# - task: TerraformCLI@0
+#   displayName: 'terraform apply'
+#   inputs:
+#     command: apply
+#     environmentServiceName: $(TerraformBackend.ServiceConnection)
