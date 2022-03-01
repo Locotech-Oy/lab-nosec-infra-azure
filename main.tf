@@ -45,6 +45,7 @@ resource "azurerm_virtual_network" "vnet" {
 
 # Create a storage account
 resource "azurerm_storage_account" "storage" {
+	# checkov:skip=CKV2_AZURE_1: Not anything critical here
   name                = "labnosecsa"
   location            = azurerm_resource_group.labnosec.location
   resource_group_name = azurerm_resource_group.labnosec.name
