@@ -50,6 +50,7 @@ resource "azurerm_storage_account" "storage" {
   resource_group_name = azurerm_resource_group.labnosec.name
   account_tier        = "Standard"
   account_replication_type = "LRS"
+  min_tls_version      = "TLS1_2"
 }
 
 # Create an App service plan (free tier)
